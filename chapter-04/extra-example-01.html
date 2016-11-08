@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Binding a specific context to a function</title>
+    <meta charset="utf-8">
+    <script src="../assert.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+    <script>
+        var o = {
+            traditionalFunc: function() {
+                // Normal function, bound as expected
+                assert(this === o, "traditionalFunc this === o?");
+            },
+            arrowFunc: () => {
+                // Arrow function, bound to scope where it's created
+                assert(this === o, 'arrowFunc this === o?');
+                assert(this === window, 'arrowFunc this === window?');
+            }
+        };
+
+        o.traditionalFunc();
+        // traditionalFunc this === o? true
+
+        o.arrowFunc();
+        // arrowFunc this === o? false
+        // arrowFunc this === window? true
+    </script>
+</body>
+
+</html>
